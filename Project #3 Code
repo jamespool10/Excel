@@ -89,3 +89,44 @@ SELECT AVG(price) AS Avg_Price,
        latitude,
        longitude
 FROM NYC_Data
+GROUP BY latitude, longitude
+ORDER BY Avg_Price DESC;
+
+-- What are the top 5 neighborhoods with the highest average price?
+
+SELECT neighbourhood,
+       AVG(price) AS Avg_Price
+FROM NYC_Data
+GROUP BY neighbourhood
+ORDER BY Avg_Price DESC
+LIMIT 5;
+
+-- What are the details of the top 10 most expensive listings?
+
+SELECT id,
+       name,
+       host_id,
+       host_name,
+       neighbourhood_group,
+       neighbourhood,
+       price,
+       minimum_nights,
+       number_of_reviews,
+       last_review,
+       reviews_per_month,
+       calculated_host_listings_count,
+       availability_365
+FROM NYC_Data
+ORDER BY price DESC
+LIMIT 10;
+
+-- How many hosts have more than one listing, and what is their average price?
+
+SELECT host_id,
+       host_name,
+       COUNT(*) AS Number_of_Listings,
+       AVG(price) AS Avg_Price
+FROM NYC_Data
+GROUP BY host_id, host_name
+HAVING COUNT(*) > 1
+ORDER BY Number_of_Listings DESC;
